@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Vo.typeData;
 import Vo.AttendeeData;
 import Action.ExcelHandle;
 
@@ -21,10 +22,13 @@ public class MyFrame extends JFrame
     public pCategory jpanel03 = null;
     static HashMap<String,ArrayList<AttendeeData>> hm = new HashMap();
     static ArrayList<AttendeeData> data = new ArrayList<AttendeeData>();
+    ArrayList<typeData> tlist = new ArrayList<typeData>();
     
     MyFrame()
     {
     	ExcelHandle eh= new ExcelHandle();
+    	hm = eh.getHashmap();
+		tlist = eh.getTlist();
 		
     	JMenuBar mb= new JMenuBar();
     	JMenu menu= new JMenu("File");
@@ -49,10 +53,9 @@ public class MyFrame extends JFrame
 		setJMenuBar(mb);
 		
 		setTitle("Money Book");
-		hm = eh.ExcelParser();
 		
 		jpanel01 = new pHistory(hm);
-		jpanel02 = new pMonth();
+		jpanel02 = new pMonth(tlist);
         jpanel03 = new pCategory();
         
         JTabbedPane jtab = new JTabbedPane();   //  JTabbedPane  °´Ã¼ »ý¼º

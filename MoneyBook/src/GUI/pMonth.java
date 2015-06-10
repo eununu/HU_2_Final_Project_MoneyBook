@@ -8,7 +8,7 @@ import Vo.typeData;
 
 class pMonth extends JPanel {
 
-	pMonth(ArrayList<typeData> tlist)
+	pMonth()
 	{
 		
 	}

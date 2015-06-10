@@ -55,8 +55,8 @@ public class MyFrame extends JFrame
 		setTitle("Money Book");
 		
 		jpanel01 = new pHistory(hm);
-		jpanel02 = new pMonth(tlist);
-        jpanel03 = new pCategory();
+		jpanel02 = new pMonth();
+        jpanel03 = new pCategory(tlist);
         
         JTabbedPane jtab = new JTabbedPane();   //  JTabbedPane  °´Ã¼ »ý¼º
         

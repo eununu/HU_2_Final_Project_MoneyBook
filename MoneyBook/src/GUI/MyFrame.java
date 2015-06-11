@@ -14,6 +14,7 @@ import java.util.HashMap;
 import Vo.typeData;
 import Vo.AttendeeData;
 import Action.ExcelHandle;
+import Action.ExcelSave;
 
 public class MyFrame extends JFrame
 {
@@ -37,12 +38,29 @@ public class MyFrame extends JFrame
     	JMenuItem menuExit= new JMenuItem("exit");
     	
 		MyOpenActionListener listenerOpen= new MyOpenActionListener();
-//		MySaveActionListener listenerSave= new MySaveActionListener();
 		menu.add(menuOpen);
 		menu.add(menuSave);
 		menu.add(menuExit);
 		menuOpen.addActionListener(listenerOpen);
-//		menuSave.addActionListener(listenerSave);
+		menuSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				File f;
+				JFileChooser fc= new JFileChooser();
+				int answer= fc.showSaveDialog(null);
+				if(answer== JFileChooser.APPROVE_OPTION)
+				{
+					f= fc.getSelectedFile();
+					try {
+						new ExcelSave(f, eh.getHashmap());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+			
+		});
 		menuExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{	
@@ -93,34 +111,6 @@ public class MyFrame extends JFrame
 			}
 		}
 	}
-
-/*	class MySaveActionListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent e)
-		{
-			File f;
-			JFileChooser fc= new JFileChooser();
-			int answer= fc.showSaveDialog(null);
-			if(answer== JFileChooser.APPROVE_OPTION)
-			{
-				f= fc.getSelectedFile();
-				PrintWriter pw = null;
-				try {
-					pw = new PrintWriter(new FileWriter(f));
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				for(int i=0;i<u.size();i++)
-				{
-					pw.printf("%s %s %d : %d %s\r\n"
-							,u.get(i).date,u.get(i).homeTeamName,u.get(i).homeScore,u.get(i).awayScore,u.get(i).awayTeamName);
-				}
-				pw.close();
-			}
-		}
-	}*/
 
     public static void main(String[] args) 
     {

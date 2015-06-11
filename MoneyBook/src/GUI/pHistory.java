@@ -107,7 +107,7 @@ public class pHistory extends JPanel implements ActionListener
 			ArrayList<AttendeeData> checkMoney = mb.get(d);	
 			for(int i=0; i<checkMoney.size(); i++)
 			{
-				if(checkMoney.get(i).getIo()== 1) 
+				if(checkMoney.get(i).getIo().equals("수입")) 
 				{
 					inmoney+= checkMoney.get(i).getMoney();
 				}
@@ -181,6 +181,11 @@ public class pHistory extends JPanel implements ActionListener
 		
 	}
 	
+	public HashMap <String,ArrayList<AttendeeData>> sendHashMap()
+	{
+		return mb;
+	}
+	
 	public void changeState(Double im, Double om)
 	{
 		bud= im-om;
@@ -204,25 +209,6 @@ public class pHistory extends JPanel implements ActionListener
 		// 리스트에 모델을 적용한다
 		datelist.setModel(defaultModel);	
 	}
-	
-	/*public void addHashMap(String k, AttendeeData ad)
-	{
-		ArrayList<AttendeeData> list = new ArrayList<AttendeeData>();
-		
-		if(mb.containsKey(k)) //원래 날짜가 있으면
-		{
-			list = mb.get(k);
-			list.add(ad);
-			mb.put(k,list);
-		}
-		
-		else if(!mb.containsKey(k))
-		{
-			listModify(k);
-			list.add(ad);
-			mb.put(k,list);
-		}
-	}*/
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -267,6 +253,8 @@ public class pHistory extends JPanel implements ActionListener
 			adata.setMemo(memo.getText());
 			adata.setType(names[index]);
 			
+			//System.out.println(adata.getMoney());
+			
 			if(btnin.isSelected()) 
 			{
 				adata.setIo("수입");
@@ -292,7 +280,6 @@ public class pHistory extends JPanel implements ActionListener
 				mb.put(k,list);
 			}
 
-		//	addHashMap(k,adata);				
 			date.setText("");
 			money.setText("");
 			memo.setText("");
@@ -313,11 +300,17 @@ public class pHistory extends JPanel implements ActionListener
 			String cardmemo = null;
 			String dlist[] = clist[1].split("/");
 			String k = "2015."+dlist[0]+"."+dlist[1];
-			String don[] = clist[3].split("원");
+			String commadon[] = clist[3].split("원");
+			String don[]= commadon[0].split(",");
 			
+			Double mmoney = 0.0;
+			for(int i=0;i<don.length;i++)
+			{
+				mmoney= mmoney*1000 + Double.parseDouble(don[i]);
+			}
 			
 			adata.setType("카드");
-			adata.setMoney(Double.parseDouble(don[0]));
+			adata.setMoney(mmoney);
 			adata.setIo("지출");
 			
 			for(int i=4; i<clist.length; i++)
@@ -343,8 +336,6 @@ public class pHistory extends JPanel implements ActionListener
 				mb.put(k,list);
 			}
 
-			//addHashMap(k,adata);
-			
 			changeState(inmoney,outmoney);
 			cardtext.setText("");
 		}

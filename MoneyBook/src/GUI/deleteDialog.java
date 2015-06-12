@@ -22,12 +22,13 @@ import Vo.AttendeeData;
 
 class deleteDialog extends JDialog
 {
-	/*method 5
+	/*method 6
 	 *1 : 삭제할 keyword 입력 후 list만들기
 	 *2 : 삭제될 list 선택 후 정보저장
 	 *3 : 삭제
 	 *4 : 변경된 전체 HashMap return
 	 *5 : 변경전 금액 return
+	 *6 : 변경된 분류 return
 	*/
 	
 	JTextField text = new JTextField(20);
@@ -39,6 +40,7 @@ class deleteDialog extends JDialog
 	JList dlist= new JList();
 	JPanel sp = new JPanel();
 	Double omoney = 0.0;
+	String cate;
 	
 	ArrayList<AttendeeData> checkItem = new ArrayList<AttendeeData>();
 	ArrayList<AttendeeData> deleteItem = new ArrayList<AttendeeData>();
@@ -101,6 +103,7 @@ class deleteDialog extends JDialog
 						if(deleteItem.get(i).getMemo().equals(klist[1]) && deleteItem.get(i).getMoney().equals(Double.parseDouble(klist[2])))
 						{
 							omoney= Double.parseDouble(klist[2]);
+							cate = deleteItem.get(i).getType();
 							deleteItem.remove(i);
 							break;
 						}
@@ -124,5 +127,10 @@ class deleteDialog extends JDialog
 	Double getOriginalMoney()
 	{
 		return omoney;
+	}
+	
+	String getCategory()
+	{
+		return cate;
 	}
 }

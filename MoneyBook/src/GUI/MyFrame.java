@@ -72,7 +72,7 @@ public class MyFrame extends JFrame
 		
 		setTitle("Money Book");
 		
-		jpanel01 = new pHistory(hm);
+		jpanel01 = new pHistory(hm,tlist);
 		jpanel02 = new pMonth();
         jpanel03 = new pCategory(tlist);
         

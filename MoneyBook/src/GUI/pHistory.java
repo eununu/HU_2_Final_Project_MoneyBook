@@ -79,14 +79,19 @@ public class pHistory extends JPanel implements ActionListener
 	JButton btne = new JButton("등록");
 
 	HashMap<String,ArrayList<AttendeeData>> mb = new HashMap();
+	ArrayList<typeData> tlist = new ArrayList<typeData>();
+	AttendeeData adata = new AttendeeData();
 	
 	static Double inmoney = 0.0;
 	static Double outmoney = 0.0;
 	static Double bud = 0.0;
 
-	pHistory(HashMap<String,ArrayList<AttendeeData>> hm)
+	pHistory(HashMap<String,ArrayList<AttendeeData>> hm, ArrayList<typeData> list)
 	{
 		this.mb = hm;
+		this.tlist = list;
+	//	pCategory pc = new pCategory(tlist);
+		
 		setLayout(new BorderLayout(5,5));
 			
 		northPanel.add(btnm);
@@ -237,9 +242,17 @@ public class pHistory extends JPanel implements ActionListener
 		int index = 0;
 		Double omoney = 0.0;
 		Double cmoney = 0.0;
+		String cate;
 		ArrayList<AttendeeData> list = new ArrayList<AttendeeData>();
-		AttendeeData adata = new AttendeeData();
-	
+		pCategory pc = new pCategory();
+		
+		if(e.getSource().equals(combo)) //분류선택
+		{
+			JComboBox cb = (JComboBox)e.getSource();
+			index = cb.getSelectedIndex();
+			adata.setType(names[index]);
+		}
+		
 		if(e.getSource().equals(btnm)) //수정하면
 		{
 			mdialog = new modifyDialog(this);
@@ -248,36 +261,43 @@ public class pHistory extends JPanel implements ActionListener
 			cmoney = mdialog.getChangedMoney();
 			outmoney-= omoney;
 			outmoney+= cmoney;
-		
+			
+			cate = mdialog.getCategory();
+			
+			pc.changeData(cate,omoney,cmoney);
+								
 			changeState(inmoney,outmoney);
 			listModify();
 		}
 		
-		else if(e.getSource().equals(btns)) //검색하면
+		if(e.getSource().equals(btns)) //검색하면
 		{
 			sdialog = new searchDialog(this,mb);
 			sdialog.setVisible(true);
 		}
 		
-		else if(e.getSource().equals(btnd)) //삭제하면
+		if(e.getSource().equals(btnd)) //삭제하면
 		{
 			ddialog = new deleteDialog(this);
 			mb= ddialog.showDialog(mb);
 			omoney = ddialog.getOriginalMoney();
 			outmoney-= omoney;
+			
+			cate = ddialog.getCategory();
 		
+			pc.changeData(cate,omoney,0.0);
+			
 			changeState(inmoney,outmoney);
 			listModify();
 		}
 		
-		else if(e.getSource().equals(btne)) //등록하면
+		if(e.getSource().equals(btne)) //등록하면
 		{
 			String k = date.getText();
 			adata.setMoney(Double.parseDouble(money.getText()));
 			adata.setMemo(memo.getText());
-			adata.setType(names[index]);
 			
-			//System.out.println(adata.getMoney());
+			if(adata.getType() == null) adata.setType("기타");
 			
 			if(btnin.isSelected()) 
 			{
@@ -308,16 +328,12 @@ public class pHistory extends JPanel implements ActionListener
 			money.setText("");
 			memo.setText("");
 			
+			pc.changeData(adata.getType(),0.0,adata.getMoney());
+			
 			changeState(inmoney,outmoney);
 		}
-		
-		else if(e.getSource().equals(combo)) //분류선택
-		{
-			JComboBox cb = (JComboBox)e.getSource();
-			index = cb.getSelectedIndex();
-		}
-		
-		else if(e.getSource().equals(cardtext)) //간편추가
+				
+		if(e.getSource().equals(cardtext)) //간편추가
 		{
 			String cardline = cardtext.getText();
 			String clist[] = cardline.split(" ");
@@ -359,7 +375,7 @@ public class pHistory extends JPanel implements ActionListener
 				list.add(adata);
 				mb.put(k,list);
 			}
-
+					
 			changeState(inmoney,outmoney);
 			cardtext.setText("");
 		}

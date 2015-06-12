@@ -190,4 +190,9 @@ class modifyDialog extends JDialog
 	{
 		return cmoney;
 	}
+	
+	String getCategory()
+	{
+		return modifyItem.getType();
+	}
 }

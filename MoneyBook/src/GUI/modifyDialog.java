@@ -33,17 +33,21 @@ class modifyDialog extends JDialog
 	
 	JList mlist = new JList();
 	JPanel sp = new JPanel(new BorderLayout(5,5));
-	JPanel scp = new JPanel(new GridLayout(2,2));
+	JPanel scp = new JPanel(new GridLayout(3,2));
+	JLabel lada = new JLabel("날짜");
 	JLabel lamo = new JLabel("금액");
 	JLabel lame = new JLabel("메모");
+	JTextField date = new JTextField(20);
 	JTextField money = new JTextField(20);
 	JTextField memo = new JTextField(20);
 	JPanel ssp = new JPanel();
 	Double omoney = 0.0;
 	Double cmoney = 0.0;
 	
+	ArrayList<AttendeeData> changeItem = new ArrayList<AttendeeData>();
 	ArrayList<AttendeeData> checkItem = new ArrayList<AttendeeData>();
-	ArrayList<AttendeeData> modifyItem = new ArrayList<AttendeeData>();
+	ArrayList<AttendeeData> originItem = new ArrayList<AttendeeData>();
+	AttendeeData modifyItem = new AttendeeData();
 	
 	modifyDialog(pHistory pHistory)
 	{
@@ -86,6 +90,8 @@ class modifyDialog extends JDialog
 			}
 		});
 		
+		scp.add(lada);
+		scp.add(date);
 		scp.add(lamo);
 		scp.add(money);
 		scp.add(lame);
@@ -98,24 +104,48 @@ class modifyDialog extends JDialog
 		add(sp,BorderLayout.SOUTH);
 		setSize(400,300);
 		
+		//klist : 수정할 아이템의 정보 
+		//klist[0]: 날짜 / klist[1]: 메모 / klist[2]: 금액
+		
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(klist.length> 0 && item!= null) 
 				{
-					modifyItem = hm.get(klist[0]);
-				
-					for(int i=0; i<modifyItem.size();i++)
+					originItem = hm.get(klist[0]); //그날 산 아이템 list
+					
+					for(int i=0; i<originItem.size();i++)
 					{
-						if(modifyItem.get(i).getMemo().equals(klist[1]) && modifyItem.get(i).getMoney().equals(Double.parseDouble(klist[2])))
+						if(originItem.get(i).getMemo().equals(klist[1]) && originItem.get(i).getMoney().equals(Double.parseDouble(klist[2])))
 						{
+							//그날 산 것 중 i번째 아이템 수정
 							omoney= Double.parseDouble(klist[2]);
 							cmoney= Double.parseDouble(money.getText());
-							modifyItem.get(i).setMoney(Double.parseDouble(money.getText()));
-							modifyItem.get(i).setMemo(memo.getText());
+							
+							modifyItem.setDate(date.getText());
+							modifyItem.setMoney(Double.parseDouble(money.getText()));
+							modifyItem.setMemo(memo.getText());
+							modifyItem.setType(originItem.get(i).getType());
+							modifyItem.setIo(originItem.get(i).getIo());
+							
+							originItem.remove(i);
+							
+							System.out.println(klist[0] + klist[1] + klist[2]);
+							System.out.println(modifyItem.getDate() + modifyItem.getMoney() + modifyItem.getMemo());
+							System.out.println(originItem.size());
+							//지우고도 다른 아이템이 있으면 list에서 안지움
+							if(originItem.size()> 0) hm.put(klist[0], originItem);
+							else hm.remove(klist[0]);
+							
+							if(hm.containsKey(modifyItem.getDate()))
+								changeItem = hm.get(modifyItem.getDate());
+							
+							changeItem.add(modifyItem);
+							
+							hm.put(date.getText(),changeItem);
+							System.out.println();
 							break;
 						}
-					}
-					hm.put(klist[0],modifyItem);
+					}				
 				}
 				setVisible(false);
 				dispose();

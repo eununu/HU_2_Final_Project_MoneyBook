@@ -95,7 +95,8 @@ class deleteDialog extends JDialog
 							break;
 						}
 					}
-					hm.put(klist[0],deleteItem);
+					if(deleteItem.size()> 0) hm.put(klist[0],deleteItem);
+					else hm.remove(klist[0]);
 				}
 				setVisible(false);
 				dispose();

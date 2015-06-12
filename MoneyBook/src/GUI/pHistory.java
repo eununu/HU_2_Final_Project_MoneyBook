@@ -99,12 +99,12 @@ public class pHistory extends JPanel implements ActionListener
 		Iterator<String> it = keys.iterator();
 		
 		Vector<String> vec = new Vector();
-		vec.add("날짜");
 
 		while(it.hasNext()) {
 			String d = it.next();
 			vec.add(d);
-			ArrayList<AttendeeData> checkMoney = mb.get(d);	
+			ArrayList<AttendeeData> checkMoney = mb.get(d);
+		
 			for(int i=0; i<checkMoney.size(); i++)
 			{
 				if(checkMoney.get(i).getIo().equals("수입")) 
@@ -126,10 +126,11 @@ public class pHistory extends JPanel implements ActionListener
 			@Override
 			public void valueChanged(ListSelectionEvent e){
 				String k = (String) datelist.getSelectedValue();
-				if(!k.equals("날짜"))
+				
+				ArrayList<AttendeeData> data = mb.get(k);
+				breakdown.setText("");
+				if(data.size()> 0)
 				{
-					ArrayList<AttendeeData> data = mb.get(k);
-					breakdown.setText("");
 					for(int i=0; i<data.size(); i++)
 					{
 						breakdown.append(data.get(i).getMemo() +" "+ data.get(i).getMoney() +" ("+ data.get(i).getType()+")\n");
@@ -194,18 +195,27 @@ public class pHistory extends JPanel implements ActionListener
 		budget.setText(bud.toString());
 	}
 
-	public void listModify(String k)
+	public void listModify()
 	{
-		ListModel listModel = datelist.getModel();
+	//	ListModel listModel = datelist.getModel();
 		
 		// 기존 아이템을 새로운 모델 객체에 복사한다
+		
 		DefaultListModel defaultModel = new DefaultListModel();
-		for(int i=0; i<listModel.getSize(); i++)
+		Set<String> key = mb.keySet();
+		Iterator<String> iter = key.iterator();
+		while(iter.hasNext())
+		{
+			defaultModel.addElement(iter.next());
+		}
+		
+		/*for(int i=0; i<listModel.getSize(); i++)
 		{
 			defaultModel.addElement(listModel.getElementAt(i));
 		}
+		*/
 		// 기존 아이템 외에 새로운 아이템 하나 추가한다
-		defaultModel.addElement(k);
+		//defaultModel.addElement(k);
 		// 리스트에 모델을 적용한다
 		datelist.setModel(defaultModel);	
 	}
@@ -228,6 +238,7 @@ public class pHistory extends JPanel implements ActionListener
 			outmoney+= cmoney;
 		
 			changeState(inmoney,outmoney);
+			listModify();
 		}
 		
 		else if(e.getSource().equals(btns)) //검색하면
@@ -244,6 +255,7 @@ public class pHistory extends JPanel implements ActionListener
 			outmoney-= omoney;
 		
 			changeState(inmoney,outmoney);
+			listModify();
 		}
 		
 		else if(e.getSource().equals(btne)) //등록하면
@@ -275,7 +287,7 @@ public class pHistory extends JPanel implements ActionListener
 			
 			else if(!mb.containsKey(k))
 			{
-				listModify(k);
+				listModify();
 				list.add(adata);
 				mb.put(k,list);
 			}
@@ -331,7 +343,7 @@ public class pHistory extends JPanel implements ActionListener
 			
 			else if(!mb.containsKey(k))
 			{
-				listModify(k);
+				listModify();
 				list.add(adata);
 				mb.put(k,list);
 			}

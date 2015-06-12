@@ -4,6 +4,7 @@ public class basicData {
 	String date;
 	String memo;
 	Double money;
+
 	public String getDate() {
 		return date;
 	}

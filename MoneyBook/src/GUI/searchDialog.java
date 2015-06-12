@@ -18,6 +18,11 @@ import Vo.AttendeeData;
 
 class searchDialog extends JDialog
 {
+	/*method 2
+	 *1 : 검색할 keyword 입력 list 출력
+	 *2 : 검색종료
+	*/
+	
 	JTextField text = new JTextField(20);
 	JTextArea ta = new JTextArea(5,20);
 	JButton btn = new JButton("종료");
@@ -37,6 +42,8 @@ class searchDialog extends JDialog
 		setTitle("검색");
 		setLayout(new BorderLayout(5,5));
 		add(text,BorderLayout.NORTH);
+		
+		//검색할 item 입력받은 후 정보 출력
 		text.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				item = text.getText();
@@ -65,7 +72,8 @@ class searchDialog extends JDialog
 		add(spb,BorderLayout.CENTER);
 		add(btn,BorderLayout.SOUTH);
 		setSize(400,300);
-
+		
+		//검색종료
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);

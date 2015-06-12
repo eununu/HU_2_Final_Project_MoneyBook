@@ -19,6 +19,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelSave {
 	
+	//엑셀 파일로 현재 데이터 저장
+	
 	public ExcelSave(File file, HashMap<String,ArrayList<AttendeeData>> hm) throws IOException
 	{
 	//	File file = new File("201506.xlsx");

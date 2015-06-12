@@ -18,6 +18,18 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
 
+/*method 9
+ *1 : 현재상태가 담긴 HashMap return (key: date / value: 금액,메모,분류,형태)
+ *2 : 수입, 지출, 잔고 금액 update
+ *3 : list update
+ *  - action Listener -  
+ *4 : 수정 -> modifyDialog 
+ *5 : 검색 -> searchDialog
+ *6 : 삭제 -> deleteDialog
+ *7 : 등록 / JRadiobutton, JTextField에서 값 얻어온 후 등록
+ *8 : 간편등록 / JTextField 에서 카드내역문자 붙여넣기 해서 입력하면 정보 파싱해서 등록
+ *9 : 분류 / JCombobox에서 값 얻어오기
+*/
 
 public class pHistory extends JPanel implements ActionListener
 {

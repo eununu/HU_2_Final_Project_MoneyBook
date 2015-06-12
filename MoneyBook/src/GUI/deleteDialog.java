@@ -22,6 +22,14 @@ import Vo.AttendeeData;
 
 class deleteDialog extends JDialog
 {
+	/*method 5
+	 *1 : 삭제할 keyword 입력 후 list만들기
+	 *2 : 삭제될 list 선택 후 정보저장
+	 *3 : 삭제
+	 *4 : 변경된 전체 HashMap return
+	 *5 : 변경전 금액 return
+	*/
+	
 	JTextField text = new JTextField(20);
 	JButton btn = new JButton("삭제");
 	String item;
@@ -41,6 +49,8 @@ class deleteDialog extends JDialog
 		setTitle("삭제");
 		setLayout(new BorderLayout(5,5));
 		add(text,BorderLayout.NORTH);
+		
+		//item 입력 받고 그 item이 포함된 list 만들기
 		text.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				item = text.getText();
@@ -65,9 +75,9 @@ class deleteDialog extends JDialog
 		});
 		
 		JScrollPane spb = new JScrollPane(dlist);
-
 		add(spb,BorderLayout.CENTER);
 	
+		//삭제될 item 선택 후 정보저장
 		dlist.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e){
@@ -77,10 +87,10 @@ class deleteDialog extends JDialog
 		});
 		
 		sp.add(btn);
-	
 		add(sp,BorderLayout.SOUTH);
 		setSize(400,300);
 		
+		//삭제
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(klist.length> 0) 

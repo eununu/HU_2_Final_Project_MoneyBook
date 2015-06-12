@@ -18,6 +18,14 @@ import Vo.typeData;
 
 public class ExcelHandle 
 {
+	/*method 5
+	 *1 : 금액, 메모, 분류, 형태 저장된 data -> key: date인 HashMap에 put
+	 *2 : 금액, 메모, 분류, 날짜 저장된 data -> ArrayList에 put
+	 *3 : 만들어진 HashMap return (key: date / value: 금액,메모,분류,형태)
+	 *4 : 만들어진 ArrayList return (날짜,금액,메모,분류)
+	 *5 : ExcelFile로 부터 data 읽어들임
+	*/
+	
 	HashMap<String,ArrayList<AttendeeData>> mba = new HashMap();
 	ArrayList<typeData> tlist = new ArrayList<typeData>();
 	
@@ -93,6 +101,8 @@ public class ExcelHandle
 			         break;
 				}
 			}
+			
+			//temp[0~4] 날짜, 금액, 메모, 분류, 형태
 			aData = makeaData(money,temp[1],temp[2],temp[3]);
 			tData = maketData(money,temp[1],temp[2],temp[0]);
 			tlist.add(tData);

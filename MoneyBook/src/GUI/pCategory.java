@@ -8,6 +8,11 @@ import Vo.typeData;
 
 class pCategory extends JPanel {
 	
+	/*method 3
+	 *1 : 분류별 금액 계산
+	 *2 : 파이그래프 각도 계산 후 update 명령
+	 *3 : 실제 파이그래프 그리기
+	*/
 	double data[] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 	int arcAngle[] = new int [8];
 	Color color[] = {Color.RED, Color.BLUE, Color.MAGENTA, Color.ORANGE, Color.GREEN, Color.PINK, Color.YELLOW, Color.WHITE};
@@ -22,6 +27,10 @@ class pCategory extends JPanel {
 		add(chartPanel, BorderLayout.CENTER);
 	}
 	
+	//분류별 금액 계산(수입, 카드사용 제외)
+	//HashMap chm
+	//key: 분류
+	//value: 금액
 	void calculateData(ArrayList<typeData> datalist)
 	{
 		double num;
@@ -48,6 +57,7 @@ class pCategory extends JPanel {
 		drawChart();
 	}
 	
+	//파이그래프
 	void drawChart() 
 	{
 		double sum = 0.0;
@@ -59,11 +69,13 @@ class pCategory extends JPanel {
 
 		for(int i=0; i<data.length; i++)
 		{
+			//각도계산
 			arcAngle[i]=(int)Math.round(data[i]/sum*360);
 		}
 		chartPanel.repaint();
 	}
 
+	//실제 그래프 그리기
 	class ChartPanel extends JPanel 
 	{
 		public void paintComponent(Graphics g) 

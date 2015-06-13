@@ -59,11 +59,11 @@ public class ExcelHandle
 		return tlist;
 	}
 	
-	public ExcelHandle() 
-			//throws IOException
+	public ExcelHandle(File f) throws IOException
 	{
 		//File file = f;
-		File file = new File("201503.xlsx");
+		File file = f;
+		//File file = new File("201503.xlsx");
 		XSSFWorkbook wb = null;
 		XSSFSheet sheet = null;
 		try {

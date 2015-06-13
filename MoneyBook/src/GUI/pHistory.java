@@ -86,6 +86,9 @@ public class pHistory extends JPanel implements ActionListener
 	static Double outmoney = 0.0;
 	static Double bud = 0.0;
 
+	pHistory(){
+	}
+	
 	pHistory(HashMap<String,ArrayList<AttendeeData>> hm, ArrayList<typeData> list)
 	{
 		this.mb = hm;

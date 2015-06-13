@@ -13,8 +13,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
@@ -138,7 +141,7 @@ public class pHistory extends JPanel implements ActionListener
 			}
 		}
 		changeState(inmoney,outmoney);
-		
+		Collections.sort(vec);
 		datelist = new JList(vec);
 		JScrollPane spbd = new JScrollPane(datelist);
 		ccp.add(spbd);
@@ -217,10 +220,6 @@ public class pHistory extends JPanel implements ActionListener
 
 	public void listModify()
 	{
-	//	ListModel listModel = datelist.getModel();
-		
-		// 기존 아이템을 새로운 모델 객체에 복사한다
-		
 		DefaultListModel defaultModel = new DefaultListModel();
 		Set<String> key = mb.keySet();
 		Iterator<String> iter = key.iterator();
@@ -229,14 +228,14 @@ public class pHistory extends JPanel implements ActionListener
 			defaultModel.addElement(iter.next());
 		}
 		
-		/*for(int i=0; i<listModel.getSize(); i++)
+		//get a collection of the elements in the model
+		List list = Collections.list(defaultModel.elements());
+		Collections.sort(list); //sort
+		defaultModel.clear(); //remove all elements
+		for(Object o : list)
 		{
-			defaultModel.addElement(listModel.getElementAt(i));
+			defaultModel.addElement(o);
 		}
-		*/
-		// 기존 아이템 외에 새로운 아이템 하나 추가한다
-		//defaultModel.addElement(k);
-		// 리스트에 모델을 적용한다
 		datelist.setModel(defaultModel);	
 	}
 	

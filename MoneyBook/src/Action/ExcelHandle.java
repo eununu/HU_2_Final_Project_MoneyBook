@@ -61,9 +61,7 @@ public class ExcelHandle
 	
 	public ExcelHandle(File f) throws IOException
 	{
-		//File file = f;
 		File file = f;
-		//File file = new File("201503.xlsx");
 		XSSFWorkbook wb = null;
 		XSSFSheet sheet = null;
 		try {

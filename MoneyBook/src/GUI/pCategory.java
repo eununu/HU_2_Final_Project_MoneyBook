@@ -8,11 +8,10 @@ import Vo.typeData;
 
 class pCategory extends JPanel {
 	
-	/*method 4
+	/*method 3
 	 *1 : 분류별 금액 계산
 	 *2 : 다른 panel 에서 분류별 값이 변경되면 분류값, 원래돈, 바뀐돈 받아와서 계산 후 다시 그리기
 	 *3 : 파이그래프 각도 계산
-	 *4 : 실제 파이그래프 그리기
 	*/
 	static double data[] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 	static int arcAngle[] = new int [8];
@@ -100,9 +99,11 @@ class pCategory extends JPanel {
 		//repaint();
 	}
 
-	//실제 그래프 그리기
 	class ChartPanel extends JPanel 
 	{
+		/*method1
+		 *1 : 그래프 그리기
+		*/
 		@Override
 		public void paintComponent(Graphics g) 
 		{

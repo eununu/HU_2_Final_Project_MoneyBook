@@ -16,6 +16,12 @@ import Vo.AttendeeData;
 import Action.ExcelHandle;
 import Action.ExcelSave;
 
+/*method 3
+ *1 : menuOpen -> Excel file 선택
+ *2 : menuSave -> Excel file 저장
+ *3 : menuExit -> 프로그램 끝내기 
+ */
+
 public class MyFrame extends JFrame
 {
 	public pHistory history = null;
@@ -68,6 +74,7 @@ public class MyFrame extends JFrame
 				}
 			}			
 		});
+		
 		menuSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
@@ -87,6 +94,7 @@ public class MyFrame extends JFrame
 			}
 			
 		});
+		
 		menuExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{	

@@ -1,5 +1,5 @@
 package GUI;
-import javax.swing.*;
+	import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -82,7 +82,6 @@ public class pHistory extends JPanel implements ActionListener
 	JButton btne = new JButton("등록");
 
 	HashMap<String,ArrayList<AttendeeData>> mb = new HashMap();
-	ArrayList<typeData> tlist = new ArrayList<typeData>();
 	AttendeeData adata = new AttendeeData();
 	
 	static Double inmoney = 0.0;
@@ -92,11 +91,9 @@ public class pHistory extends JPanel implements ActionListener
 	pHistory(){
 	}
 	
-	pHistory(HashMap<String,ArrayList<AttendeeData>> hm, ArrayList<typeData> list)
+	pHistory(HashMap<String,ArrayList<AttendeeData>> hm)
 	{
 		this.mb = hm;
-		this.tlist = list;
-	//	pCategory pc = new pCategory(tlist);
 		
 		setLayout(new BorderLayout(5,5));
 			
@@ -296,7 +293,11 @@ public class pHistory extends JPanel implements ActionListener
 		if(e.getSource().equals(btne)) //등록하면
 		{
 			String k = date.getText();
-			adata.setMoney(Double.parseDouble(money.getText()));
+			try{
+				adata.setMoney(Double.parseDouble(money.getText()));
+			}
+			catch(Exception ex){
+			}
 			adata.setMemo(memo.getText());
 			
 			if(adata.getType() == null) adata.setType("기타");
@@ -321,9 +322,9 @@ public class pHistory extends JPanel implements ActionListener
 			
 			else if(!mb.containsKey(k))
 			{
-				listModify();
 				list.add(adata);
 				mb.put(k,list);
+				listModify();
 			}
 
 			date.setText("");
@@ -346,10 +347,14 @@ public class pHistory extends JPanel implements ActionListener
 			String don[]= commadon[0].split(",");
 			
 			Double mmoney = 0.0;
-			for(int i=0;i<don.length;i++)
+			try
 			{
-				mmoney= mmoney*1000 + Double.parseDouble(don[i]);
+				for(int i=0;i<don.length;i++)
+				{
+					mmoney= mmoney*1000 + Double.parseDouble(don[i]);
+				}
 			}
+			catch(Exception ex){}
 			
 			adata.setType("카드");
 			adata.setMoney(mmoney);
@@ -373,9 +378,9 @@ public class pHistory extends JPanel implements ActionListener
 			
 			else if(!mb.containsKey(k))
 			{
-				listModify();
 				list.add(adata);
 				mb.put(k,list);
+				listModify();
 			}
 					
 			changeState(inmoney,outmoney);

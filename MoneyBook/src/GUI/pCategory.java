@@ -32,14 +32,10 @@ class pCategory extends JPanel {
 		add(chartPanel, BorderLayout.CENTER);
 	}
 	
-	public ArrayList<typeData> updateList()
-	{
-		return tlist;
-	}
-	
 	public void changeData(String d, Double odon, Double cdon)
 	{
 		Double don = 0.0;
+		if(d== null) return;
 		for(int i=0;i<itemName.length;i++)
 		{
 			if(d.equals(itemName[i]))

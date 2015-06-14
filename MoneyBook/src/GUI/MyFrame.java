@@ -56,7 +56,7 @@ public class MyFrame extends JFrame
 						ExcelHandle eh= new ExcelHandle(f);
 						hm = eh.getHashmap();
 						tlist = eh.getTlist();
-						history = new pHistory(hm,tlist);
+						history = new pHistory(hm);
 						category = new pCategory(tlist);
 					
 						JTabbedPane jtab = new JTabbedPane();   //  JTabbedPane  °´Ã¼ »ý¼º
